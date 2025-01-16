@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿using ConsoleApp.Models;
 using ConsoleApp.Menus;
 
@@ -171,4 +172,152 @@ namespace ConsoleApp
             }
         }
     }
+=======
+﻿namespace ConsoleApp
+{
+    public class Program
+    {
+        List<User> users = new List<User>();
+
+        static void Main(string[] args)
+        {
+            Program program = new Program();
+            program.Run();
+        }
+
+        void Run()
+        {
+            while (true)
+            {
+                ShowMenu();
+                Console.Write("Option: ");
+                string option = Console.ReadLine()!;
+                Console.Clear();
+
+                switch (option)
+                {
+                    case "1":
+                        Register();
+                        break;
+                    case "2":
+                        List();
+                        break;
+                    case "3":
+                        Update();
+                        break;
+                    case "4":
+                        Exit();
+                        return;
+                    default:
+                        Console.WriteLine("Invalid option. Please try again.");
+                        break;
+                }
+            }
+        }
+
+        void ShowMenu()
+        {
+            Console.WriteLine("1 - Register");
+            Console.WriteLine("2 - List");
+            Console.WriteLine("3 - Update");
+            Console.WriteLine("4 - Exit\n");
+        }
+
+        void Title(string title)
+        {
+            string separator = new string('-', title.Length);
+            Console.WriteLine(separator);
+            Console.WriteLine(title);
+            Console.WriteLine(separator);
+        }
+        
+        void ExitOption()
+        {
+            Console.WriteLine("\nExiting...");
+            Thread.Sleep(2000);
+            Console.Clear();
+        }
+
+        void Register()
+        {
+            Title("Register");
+            
+            Console.Write("First name: ");
+            string name = Console.ReadLine()!;
+            Console.Write("Last name: ");
+            string lastName = Console.ReadLine()!;
+            Console.Write("Email: ");
+            string email = Console.ReadLine()!;
+            Console.Write("Password: ");
+            string password = Console.ReadLine()!;
+
+            User user = new User(name, lastName, email, password);
+            users.Add(user);
+            
+            Console.WriteLine("\nUser registered successfully!");
+            ExitOption();
+        }
+
+        void List()
+        {
+            Title("List");
+            
+            if (users.Count == 0)
+            {
+                Console.WriteLine("No users registered.");
+            }
+            else
+            {
+                foreach (User user in users)
+                {
+                    Console.WriteLine($"First name: {user.FirstName}");
+                    Console.WriteLine($"Last name: {user.LastName}");
+                    Console.WriteLine($"Email: {user.Email}");
+                }
+            }
+            
+            Console.WriteLine();
+            Console.Write("Press any key to continue...");
+            Console.ReadKey();
+            Console.Clear();
+        }
+
+        void Update()
+        {
+            Title("Update");
+            
+            if (users.Count == 0) Console.WriteLine("No users registered.");
+            else
+            {
+                Console.Write("Email: ");
+                string email = Console.ReadLine()!;
+                
+                User? user = users.Find(u => u.Email == email);
+                if (user == null) Console.WriteLine("User not found.");
+                else
+                {
+                    Console.Write("First name: ");
+                    string name = Console.ReadLine()!;
+                    Console.Write("Last name: ");
+                    string lastName = Console.ReadLine()!;
+                    Console.Write("Password: ");
+                    string password = Console.ReadLine()!;
+                    
+                    user.FirstName = name;
+                    user.LastName = lastName;
+                    user.Password = password;
+                    
+                    Console.WriteLine("\nUser updated successfully!");
+                }
+            }
+            
+            ExitOption();
+        }
+
+        void Exit()
+        {
+            Console.WriteLine("Exiting...");
+        }
+    }
+>>>>>>> c81d71d (feat:init)
 }
