@@ -1,4 +1,5 @@
 ﻿using System;
+using ConsoleApp1.Models;
 
 namespace ConsoleApp.Models
 {

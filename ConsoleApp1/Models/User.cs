@@ -1,6 +1,6 @@
-﻿namespace ConsoleApp.Models;
+﻿namespace ConsoleApp1.Models;
 
-public class User(string firstName, string lastName, string email, string password, Contract? contract)
+public class User(string firstName, string lastName, string email, string password)
 {
     public int Id { get; set; }
     public string FirstName { get; set; } = firstName;

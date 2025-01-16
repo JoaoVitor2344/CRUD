@@ -1,6 +1,7 @@
 ﻿using ConsoleApp.Menus;
 using ConsoleApp.Models;
 using ConsoleApp1.Database;
+using ConsoleApp1.Models;
 using Microsoft.Data.SqlClient;
 
 namespace ConsoleApp1.Menus;
@@ -30,7 +31,7 @@ public class MenuUsers : Menu
                 string email = reader.GetString(2);
                 string password = reader.GetString(3);
 
-                User user = new User(firstName, lastName, email, password, null);
+                User user = new User(firstName, lastName, email, password);
                 _users.Add(user);
             }
         }
@@ -55,7 +56,7 @@ public class MenuUsers : Menu
             string email = ReadString("Email: ");
             string password = ReadString("Password: ");
 
-            User user = new User(firstName, lastName, email, password, null);
+            User user = new User(firstName, lastName, email, password);
             _users.Add(user);
 
             _connection.OpenConnection();
@@ -113,13 +114,17 @@ public class MenuUsers : Menu
             }
             else
             {
-                string firstName = ReadString("First name: ", user.FirstName);
-                string lastName = ReadString("Last name: ", user.LastName);
-                string password = ReadString("Password: ", user.Password);
+                string firstName = ReadString("First name: ");
+                string lastName = ReadString("Last name: ");
+                string password = ReadString("Password: ");
 
                 user.FirstName = firstName;
                 user.LastName = lastName;
                 user.Password = password;
+
+                _connection.OpenConnection();
+                _connection.ExecuteNonQuery($"UPDATE Users SET first_name = '{firstName}', last_name = '{lastName}', password = '{password}' WHERE email = '{email}'");
+                _connection.CloseConnection();
 
                 Console.WriteLine("\nUser updated successfully!");
             }

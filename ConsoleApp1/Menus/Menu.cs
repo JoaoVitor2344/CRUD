@@ -44,18 +44,14 @@ public class Menu(List<string> options, string title)
         Console.Clear();
     }
 
-    protected static string ReadString(string prompt, string defaultValue = "")
+    protected static string ReadString(string prompt)
     {
         Console.Write(prompt);
-        if (!string.IsNullOrEmpty(defaultValue))
-        {
-            Console.Write(defaultValue);
-            Console.SetCursorPosition(prompt.Length,
-                Console.CursorTop);
-        }
+        Console.SetCursorPosition(prompt.Length,
+            Console.CursorTop);
 
         string input = Console.ReadLine()!;
-        return string.IsNullOrWhiteSpace(input) ? defaultValue : input;
+        return input;
     }
 
     protected static decimal ReadDecimal(string prompt, decimal defaultValue = 0)

@@ -6,7 +6,6 @@ namespace ConsoleApp1
 {
     internal class Program
     {
-
         private readonly Menu _mainMenu = new Menu([
             "Users",
             "Positions",

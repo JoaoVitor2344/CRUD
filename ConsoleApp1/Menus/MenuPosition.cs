@@ -123,7 +123,7 @@ public class MenuPosition(List<string> options, string title) : Menu(options, ti
             else
             {
                 decimal baseSalary = ReadDecimal("Base salary: ", position.BaseSalary);
-                string description = ReadString("Description: ", position.Description);
+                string description = ReadString("Description: ");
                 int workHours = ReadInt("Work hours: ", position.WorkHours);
                 int vacationDays = ReadInt("Vacation days: ", position.VacationDays);
                 bool hasHealthPlan = ReadBoolean("Has health plan (true/false): ", position.HasHealthPlan);

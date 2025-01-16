@@ -123,14 +123,14 @@ public class MenuAddress(List<string> options, string title) : Menu(options, tit
                 if (address == null) Console.WriteLine("Address not found.");
                 else
                 {
-                    string street = ReadString("Street: ", address.Street);
-                    string number = ReadString("Number: ", address.Number);
-                    string complement = ReadString("Complement: ", address.Complement);
-                    string neighborhood = ReadString("Neighborhood: ", address.Neighborhood);
-                    string city = ReadString("City: ", address.City);
-                    string state = ReadString("State: ", address.State);
-                    string zipCode = ReadString("Zip code: ", address.ZipCode);
-                    string country = ReadString("Country: ", address.Country);
+                    string street = ReadString("Street: ");
+                    string number = ReadString("Number: ");
+                    string complement = ReadString("Complement: ");
+                    string neighborhood = ReadString("Neighborhood: ");
+                    string city = ReadString("City: ");
+                    string state = ReadString("State: ");
+                    string zipCode = ReadString("Zip code: ");
+                    string country = ReadString("Country: ");
 
                     address.Update(
                         street: street,
