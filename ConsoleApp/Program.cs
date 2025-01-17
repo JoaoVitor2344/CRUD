@@ -1,5 +1,4 @@
 ﻿using ConsoleApp.Menus;
-using ConsoleApp1.Database;
 using ConsoleApp1.Menus;
 
 namespace ConsoleApp1
