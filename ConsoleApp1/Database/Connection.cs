@@ -4,7 +4,7 @@ namespace ConsoleApp1.Database
 {
     internal class Connection : IDisposable
     {
-        private const string ConnectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ConsoleApp;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+        private const string ConnectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
         private readonly SqlConnection _connection = new(ConnectionString);
 
         public void OpenConnection()

@@ -1,5 +1,4 @@
 ﻿using ConsoleApp.Menus;
-using ConsoleApp.Models;
 using ConsoleApp1.Database;
 using ConsoleApp1.Models;
 using Microsoft.Data.SqlClient;

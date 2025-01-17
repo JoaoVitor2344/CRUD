@@ -47,28 +47,17 @@ public class Menu(List<string> options, string title)
     protected static string ReadString(string prompt)
     {
         Console.Write(prompt);
-        Console.SetCursorPosition(prompt.Length,
-            Console.CursorTop);
 
         string input = Console.ReadLine()!;
         return input;
     }
 
-    protected static decimal ReadDecimal(string prompt, decimal defaultValue = 0)
+    protected static decimal ReadDecimal(string prompt)
     {
         while (true)
         {
             Console.Write(prompt);
-            if (defaultValue != 0)
-            {
-                Console.Write(defaultValue);
-                Console.SetCursorPosition(prompt.Length,
-                    Console.CursorTop);
-            }
-
             string input = Console.ReadLine()!;
-            if (string.IsNullOrWhiteSpace(input))
-                return defaultValue;
 
             if (decimal.TryParse(input, out decimal result) && result >= 0)
                 return result;
@@ -77,21 +66,12 @@ public class Menu(List<string> options, string title)
         }
     }
 
-    protected static int ReadInt(string prompt, int defaultValue = 0)
+    protected static int ReadInt(string prompt)
     {
         while (true)
         {
             Console.Write(prompt);
-            if (defaultValue != 0)
-            {
-                Console.Write(defaultValue);
-                Console.SetCursorPosition(prompt.Length,
-                    Console.CursorTop);
-            }
-
             string input = Console.ReadLine()!;
-            if (string.IsNullOrWhiteSpace(input))
-                return defaultValue;
 
             if (int.TryParse(input, out int result) && result > 0)
                 return result;
@@ -100,21 +80,12 @@ public class Menu(List<string> options, string title)
         }
     }
 
-    protected static bool ReadBoolean(string prompt, bool defaultValue = false)
+    protected static bool ReadBoolean(string prompt)
     {
         while (true)
         {
             Console.Write(prompt);
-            if (defaultValue)
-            {
-                Console.Write("true");
-                Console.SetCursorPosition(prompt.Length,
-                    Console.CursorTop);
-            }
-
             string input = Console.ReadLine()!;
-            if (string.IsNullOrWhiteSpace(input))
-                return defaultValue;
 
             if (bool.TryParse(input, out bool result))
                 return result;

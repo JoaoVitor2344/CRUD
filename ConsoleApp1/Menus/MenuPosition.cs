@@ -1,47 +1,55 @@
-﻿using ConsoleApp.Models;
+﻿using ConsoleApp.Menus;
+using ConsoleApp.Models;
+using ConsoleApp1.Database;
+using Microsoft.Data.SqlClient;
 
-namespace ConsoleApp.Menus;
+namespace ConsoleApp1.Menus;
 
-public class MenuPosition(List<string> options, string title) : Menu(options, title)
+public class MenuPosition : Menu
 {
-    private readonly List<Position> _positions =
-    [
-        new Position(
-            id: 1,
-            name: "Software Engineer",
-            baseSalary: 8000.00m,
-            description: "Develop and maintain software applications.",
-            workHours: 40,
-            vacationDays: 30,
-            hasHealthPlan: true,
-            hasTransportationVoucher: true,
-            hasHomeOffice: true
-        ),
+    private readonly List<Position> _positions;
+    private readonly Connection _connection = new Connection();
 
-        new Position(
-            id: 2,
-            name: "Product Manager",
-            baseSalary: 10000.00m,
-            description: "Manage product development and strategy.",
-            workHours: 40,
-            vacationDays: 30,
-            hasHealthPlan: true,
-            hasTransportationVoucher: true,
-            hasHomeOffice: false
-        ),
+    public MenuPosition(List<string> options, string title) : base(options, title)
+    {
+        _positions = new List<Position>();
+        LoadPosition();
 
-        new Position(
-            id: 3,
-            name: "Data Scientist",
-            baseSalary: 9000.00m,
-            description: "Analyze and interpret complex data.",
-            workHours: 40,
-            vacationDays: 30,
-            hasHealthPlan: true,
-            hasTransportationVoucher: false,
-            hasHomeOffice: true
-        )
-    ];
+    }
+
+    private void LoadPosition()
+    {
+        try
+        {
+            _connection.OpenConnection();
+            using SqlCommand command = new SqlCommand("SELECT id, name, base_salary, description, work_hours, vacation_days, has_health_plan, has_transportation_voucher, has_home_office FROM Positions", _connection.GetConnection());
+            using SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                int id = reader.GetInt32(0);
+                string name = reader.GetString(1);
+                decimal baseSalary = reader.GetDecimal(2);
+                string description = reader.GetString(3);
+                int workHours = reader.GetInt32(4);
+                int vacationDays = reader.GetInt32(5);
+                bool hasHealthPlan = reader.GetBoolean(6);
+                bool hasTransportationVoucher = reader.GetBoolean(7);
+                bool hasHomeOffice = reader.GetBoolean(8);
+
+                Position position= new Position(id, name, baseSalary, description, workHours, vacationDays, hasHealthPlan, hasTransportationVoucher, hasHomeOffice);
+                _positions.Add(position);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+        finally
+        {
+            _connection.CloseConnection();
+        }
+    }
 
     public void Register()
     {
@@ -122,14 +130,13 @@ public class MenuPosition(List<string> options, string title) : Menu(options, ti
             }
             else
             {
-                decimal baseSalary = ReadDecimal("Base salary: ", position.BaseSalary);
+                decimal baseSalary = ReadDecimal("Base salary: ");
                 string description = ReadString("Description: ");
-                int workHours = ReadInt("Work hours: ", position.WorkHours);
-                int vacationDays = ReadInt("Vacation days: ", position.VacationDays);
-                bool hasHealthPlan = ReadBoolean("Has health plan (true/false): ", position.HasHealthPlan);
-                bool hasTransportationVoucher = ReadBoolean("Has transportation voucher (true/false): ",
-                    position.HasTransportationVoucher);
-                bool hasHomeOffice = ReadBoolean("Has home office (true/false): ", position.HasHomeOffice);
+                int workHours = ReadInt("Work hours: ");
+                int vacationDays = ReadInt("Vacation days: ");
+                bool hasHealthPlan = ReadBoolean("Has health plan (true/false): ");
+                bool hasTransportationVoucher = ReadBoolean("Has transportation voucher (true/false)");
+                bool hasHomeOffice = ReadBoolean("Has home office (true/false): ");
 
                 position.Update(
                     name: name,
